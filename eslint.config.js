@@ -25,6 +25,7 @@ export default defineConfig([
     },
     rules: {
       'prettier/prettier': ['warn'], // A ajouter
+      '@typescript-eslint/no-unused-vars': ['warn'],
       // 'react/jsx-key': [1,  { checkFragmentShorthand: true }], // eslint-plugin-react
     },
   },
