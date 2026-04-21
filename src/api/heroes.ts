@@ -1,4 +1,4 @@
-import type { Hero } from '../types/hero';
+import type { Hero, HeroAlignment } from '../types/hero';
 
 export const getHeroes = (letter: string): Promise<Hero[]> => {
   return fetch('http://localhost:3001/heroes?name_like=^' + letter).then((response) => {
@@ -7,4 +7,15 @@ export const getHeroes = (letter: string): Promise<Hero[]> => {
     }
     return response.json();
   });
+};
+
+export const getHeroesByAlignment = (alignment: HeroAlignment): Promise<Hero[]> => {
+  return fetch('http://localhost:3001/heroes?biography.alignment_like=^' + alignment).then(
+    (response) => {
+      if (response.status !== 200) {
+        throw new Error(`Response status: ${response.status}`);
+      }
+      return response.json();
+    },
+  );
 };

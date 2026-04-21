@@ -8,17 +8,23 @@
 import { useEffect, useState } from 'react';
 import HeroCard from '@components/HeroCard';
 import { getAlphabet } from './utils';
-import { useGetHeroes } from '../../hooks/useGetHeroes';
+import { useQuery } from '@tanstack/react-query';
+import { getHeroes } from '../../api/heroes';
 
 const alphabet = getAlphabet();
 
 function HeroesList() {
   const initialLetter = 'A';
   const [letter, setLetter] = useState(initialLetter);
-  const { heroes, loading, error, refetch } = useGetHeroes();
+  // const { heroes, loading, error, refetch } = useGetHeroes();
+
+  const { data: heroes, isLoading, isError, error, refetch } = useQuery({
+    queryKey: ['getHeroes', letter],
+    queryFn: () => getHeroes(letter),
+  });
 
   useEffect(() => {
-    refetch(initialLetter);
+    // refetch();
     return () => {};
   }, []);
 
@@ -45,11 +51,11 @@ function HeroesList() {
           );
         })}
       </ul>
-      {loading === true ? <p>Chargement en cours...</p> : null}
-      {error !== '' ? <p>{error}</p> : null}
+      {isLoading === true ? <p>Chargement en cours...</p> : null}
+      {isError ? <p>{error.message}</p> : null}
       {!error && (
         <section className='flex justify-center flex-wrap gap-4'>
-          {heroes.map((hero) => (
+          {heroes?.map((hero) => (
             <HeroCard key={hero.id} hero={hero} />
           ))}
         </section>

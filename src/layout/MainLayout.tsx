@@ -11,6 +11,7 @@ const links: Link[] = [
   { to: '/', label: 'Home' },
   { to: '/heroes', label: 'Heroes' },
   { to: '/useEffect', label: 'Lifecycle' },
+  { to: '/search', label: 'Search' },
 ];
 
 const MainLayout = () => {

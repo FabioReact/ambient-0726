@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import MainLayout from './layout/MainLayout';
 import Lifecycle from './pages/Lifecycle';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import SearchHeroes from './pages/SearchHeroes';
 
 const queryClient = new QueryClient();
 
@@ -16,6 +17,7 @@ const App = () => {
             <Route index element={<Home />} />
             <Route path='/heroes' element={<HeroesList />} />
             <Route path='/useEffect' element={<Lifecycle />} />
+            <Route path='/search' element={<SearchHeroes />} />
             <Route path='*' element={<p>404</p>} />
           </Route>
         </Routes>
