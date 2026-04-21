@@ -1,5 +1,5 @@
-import { useEffect, useRef } from 'react';
-import { useCounter } from '../hooks/useCounter';
+import { useEffect, useRef } from "react";
+import { useCounter } from "../hooks/useCounter";
 
 // useEffect va nous servir à nous accrocher à des moments précis du cycle de vie d'un composant React
 // Avec un tableau de dépendances vide, useEffect s'exécutera uniquement après le premier rendu du composant

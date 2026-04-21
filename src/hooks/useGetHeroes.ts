@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { getHeroes } from '../api/heroes';
-import type { Hero } from '../types/hero';
+import { useState } from "react";
+import { getHeroes } from "../api/heroes";
+import type { Hero } from "../types/hero";
 
 // Il faut que ça commence que ça commence par use
 // Si j'utilise un autre hook de la libraire react (useState, useEffect, useReducer, useMemo...)
@@ -8,11 +8,11 @@ import type { Hero } from '../types/hero';
 const useGetHeroes = () => {
   const [heroes, setHeroes] = useState<Hero[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   const refetch = async (letter: string) => {
     setLoading(true);
-    setError('');
+    setError("");
     setHeroes([]);
     try {
       const data = await getHeroes(letter);
