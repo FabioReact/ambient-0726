@@ -3,14 +3,14 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import z from "zod";
 import { schema } from "./schema";
 import { useMutation } from "@tanstack/react-query";
-import { createUser } from "../../api/users";
+import { loginUser } from "../../api/users";
 import { toast } from "react-toastify";
 import { useContext } from "react";
 import UserContext from "../../context/user-context";
 
 type Inputs = z.infer<typeof schema>;
 
-const Register = () => {
+const Login = () => {
   const {
     register,
     handleSubmit,
@@ -18,15 +18,15 @@ const Register = () => {
   } = useForm<Inputs>({
     resolver: zodResolver(schema),
   });
-  const { loginUser } = useContext(UserContext);
+  const { loginUser: onLogin } = useContext(UserContext);
 
   const { mutate } = useMutation({
-    mutationFn: createUser,
+    mutationFn: loginUser,
     onSuccess: (data) => {
       // Partager l'adresse mail et le token de l'utilisateur avec les autres composants de l'application
       // data.accessToken
-      toast.success(`User ${data.user.email} registered successfully`);
-      loginUser(data.user.email, data.accessToken);
+      toast.success(`User ${data.user.email} logged in successfully`);
+      onLogin(data.user.email, data.accessToken);
     },
     onError: (error) => {
       toast.error(`An error occured: ${error.message}`);
@@ -42,7 +42,7 @@ const Register = () => {
 
   return (
     <section>
-      <h1>Register</h1>
+      <h1>Login</h1>
       <form onSubmit={handleSubmit(onSubmitHandler)}>
         <fieldset>
           <label htmlFor="email">Email</label>
@@ -54,15 +54,10 @@ const Register = () => {
           <input type="password" id="password" {...register("password")} />
           <p className="text-red-500">{errors.password?.message}</p>
         </fieldset>
-        <fieldset>
-          <label htmlFor="passwordConfirmation">Confirm Password</label>
-          <input type="password" id="passwordConfirmation" {...register("passwordConfirmation")} />
-          <p className="text-red-500">{errors.passwordConfirmation?.message}</p>
-        </fieldset>
-        <button type="submit">Register</button>
+        <button type="submit">Login</button>
       </form>
     </section>
   );
 };
 
-export default Register;
+export default Login;

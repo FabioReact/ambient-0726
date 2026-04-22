@@ -1,5 +1,6 @@
 import { NavLink, Outlet, type NavLinkRenderProps } from "react-router";
 import { ErrorBoundary } from "../hoc/ErrorBoundary";
+import { ToastContainer } from "react-toastify";
 
 const getActiveClassName = ({ isActive }: NavLinkRenderProps) =>
   [
@@ -19,6 +20,8 @@ const links: Link[] = [
   { to: "/useEffect", label: "Lifecycle" },
   { to: "/search", label: "Search" },
   { to: "/register", label: "Register" },
+  { to: "/login", label: "Login" },
+  { to: "/profile", label: "Profile" },
 ];
 
 const MainLayout = () => {
@@ -38,8 +41,8 @@ const MainLayout = () => {
         </nav>
       </header>
       <ErrorBoundary>
-      <Outlet />
-
+        <ToastContainer />
+        <Outlet />
       </ErrorBoundary>
       <footer>Footer</footer>
     </>

@@ -13,6 +13,11 @@ export default defineConfig({
       "@components": path.resolve(__dirname, "./src/components"),
     },
   },
+  server: {
+    watch: {
+      ignored: ["**/db.json"],
+    },
+  },
   test: {
     globals: true,
     environment: "jsdom",
