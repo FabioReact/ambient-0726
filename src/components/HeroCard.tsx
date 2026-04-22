@@ -13,7 +13,7 @@ const HeroCard = ({ hero }: { hero: Hero }) => {
       <div className="px-6 py-2">
         <div className="flex justify-between">
           <p className="font-bold text-xl">
-            <p>{hero.name}</p>
+            <span>{hero.name}</span>
             <span className="text-gray-600 text-base">#{hero.id}</span>
           </p>
         </div>

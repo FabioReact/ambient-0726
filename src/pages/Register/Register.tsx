@@ -1,17 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import z from "zod";
-
-const schema = z
-  .object({
-    email: z.email(),
-    password: z
-      .string()
-      .min(6, { error: "Le mot de passe doit faire au moins 6 charactères" })
-      .max(100),
-    passwordConfirmation: z.string(),
-  })
-  .required();
+import { schema } from "./schema";
 
 type Inputs = z.infer<typeof schema>;
 

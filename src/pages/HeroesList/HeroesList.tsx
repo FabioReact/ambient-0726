@@ -10,6 +10,8 @@ import HeroCard from "@components/HeroCard";
 import { getAlphabet } from "./utils";
 import { useQuery } from "@tanstack/react-query";
 import { getHeroes } from "../../api/heroes";
+import IsLoading from "@components/IsLoading/IsLoading";
+import IsError from "@components/IsError";
 
 const alphabet = getAlphabet();
 
@@ -44,6 +46,7 @@ function HeroesList() {
         {alphabet.map((l) => {
           return (
             <li
+              key={l}
               onClick={() => onSelectLetter(l)}
               className="cursor-pointer"
               style={{
@@ -55,15 +58,16 @@ function HeroesList() {
           );
         })}
       </ul>
-      {isLoading === true ? <p>Chargement en cours...</p> : null}
-      {isError ? <p>{error.message}</p> : null}
-      {!error && (
-        <section className="flex justify-center flex-wrap gap-4">
-          {heroes?.map((hero) => (
-            <HeroCard key={hero.id} hero={hero} />
-          ))}
-        </section>
-      )}
+      <IsLoading loading={isLoading}>
+        <IsError isError={isError} errorMessage={error?.message}>
+          <section className="flex justify-center flex-wrap gap-4">
+            {heroes?.map((hero) => (
+              <HeroCard key={hero.id} hero={hero} />
+            ))}
+          </section>
+        </IsError>
+      </IsLoading>
+
     </>
   );
 }

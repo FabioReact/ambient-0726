@@ -1,4 +1,5 @@
 import { NavLink, Outlet, type NavLinkRenderProps } from "react-router";
+import { ErrorBoundary } from "../hoc/ErrorBoundary";
 
 const getActiveClassName = ({ isActive }: NavLinkRenderProps) =>
   [
@@ -36,7 +37,10 @@ const MainLayout = () => {
           </ul>
         </nav>
       </header>
+      <ErrorBoundary>
       <Outlet />
+
+      </ErrorBoundary>
       <footer>Footer</footer>
     </>
   );
