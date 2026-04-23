@@ -13,6 +13,8 @@ import { lazy, Suspense, useState } from "react";
 import Login from "./pages/Login/Login";
 import PrivateRoute from "./hoc/PrivateRoute";
 import Battle from "./pages/Battle/Battle";
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
 
 const queryClient = new QueryClient();
 
@@ -40,31 +42,33 @@ const App = () => {
   };
 
   return (
-    <UserContext.Provider value={initialUserContextValues}>
-      <QueryClientProvider client={queryClient}>
-        <Suspense fallback={<p>Loading...</p>}>
-          <BrowserRouter>
-            <Routes>
-              <Route element={<MainLayout />}>
-                <Route index element={<Home />} />
-                <Route path="/heroes" element={<HeroesList />} />
-                <Route path="/optimization" element={<Optimization />} />
-                <Route path="/battle" element={<Battle />} />
-                <Route path="/useEffect" element={<Lifecycle />} />
-                <Route path="/search" element={<SearchHeroes />} />
-                <Route path="/register" element={<Register />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/share-data" element={<ShareData />} />
-                <Route element={<PrivateRoute />}>
-                  <Route path="/profile" element={<Profile />} />
+    <Provider store={store}>
+      <UserContext.Provider value={initialUserContextValues}>
+        <QueryClientProvider client={queryClient}>
+          <Suspense fallback={<p>Loading...</p>}>
+            <BrowserRouter>
+              <Routes>
+                <Route element={<MainLayout />}>
+                  <Route index element={<Home />} />
+                  <Route path="/heroes" element={<HeroesList />} />
+                  <Route path="/optimization" element={<Optimization />} />
+                  <Route path="/battle" element={<Battle />} />
+                  <Route path="/useEffect" element={<Lifecycle />} />
+                  <Route path="/search" element={<SearchHeroes />} />
+                  <Route path="/register" element={<Register />} />
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/share-data" element={<ShareData />} />
+                  <Route element={<PrivateRoute />}>
+                    <Route path="/profile" element={<Profile />} />
+                  </Route>
+                  <Route path="*" element={<p>404</p>} />
                 </Route>
-                <Route path="*" element={<p>404</p>} />
-              </Route>
-            </Routes>
-          </BrowserRouter>
-        </Suspense>
-      </QueryClientProvider>
-    </UserContext.Provider>
+              </Routes>
+            </BrowserRouter>
+          </Suspense>
+        </QueryClientProvider>
+      </UserContext.Provider>
+    </Provider>
   );
 };
 
