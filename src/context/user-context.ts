@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import { createContext, useContext } from "react";
 
 type UserContextType = {
   accessToken: string;
@@ -15,4 +15,7 @@ const UserContext = createContext<UserContextType>({
   loginUser: () => {},
 });
 
+export const useUserContext = () => useContext(UserContext);
+
 export default UserContext;
+// export { UserContext as default, useUserContext };

@@ -11,6 +11,8 @@ import UserContext from "./context/user-context";
 import Profile from "./pages/Profile";
 import { useState } from "react";
 import Login from "./pages/Login/Login";
+import PrivateRoute from "./hoc/PrivateRoute";
+import Battle from "./pages/Battle/Battle";
 
 const queryClient = new QueryClient();
 
@@ -42,12 +44,15 @@ const App = () => {
             <Route element={<MainLayout />}>
               <Route index element={<Home />} />
               <Route path="/heroes" element={<HeroesList />} />
+              <Route path="/battle" element={<Battle />} />
               <Route path="/useEffect" element={<Lifecycle />} />
               <Route path="/search" element={<SearchHeroes />} />
               <Route path="/register" element={<Register />} />
               <Route path="/login" element={<Login />} />
               <Route path="/share-data" element={<ShareData />} />
-              <Route path="/profile" element={<Profile />} />
+              <Route element={<PrivateRoute />}>
+                <Route path="/profile" element={<Profile />} />
+              </Route>
               <Route path="*" element={<p>404</p>} />
             </Route>
           </Routes>
