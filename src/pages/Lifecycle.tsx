@@ -39,9 +39,24 @@ const Lifecycle = () => {
     <section>
       <h1>Learn useEffect</h1>
       <p>Counter value: {counter}</p>
-      <button onClick={increment}>Increment</button>
-      <button onClick={decrement}>Decrement</button>
-      <button onClick={reset}>Reset</button>
+      <button
+        onClick={increment}
+        className="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg cursor-pointer"
+      >
+        Increment
+      </button>
+      <button
+        onClick={decrement}
+        className="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg cursor-pointer"
+      >
+        Decrement
+      </button>
+      <button
+        onClick={reset}
+        className="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg cursor-pointer"
+      >
+        Reset
+      </button>
     </section>
   );
 };
