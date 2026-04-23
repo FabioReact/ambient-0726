@@ -1,8 +1,8 @@
 import { Navigate, Outlet, useLocation } from "react-router";
-import { useUserContext } from "../context/user-context";
+import { useAppSelector } from "../redux/hooks";
 
 const PrivateRoute = () => {
-  const { isConnected } = useUserContext();
+  const { isConnected } = useAppSelector((state) => state.user);
   const { pathname } = useLocation();
   // profile
   // Si la route est privée, alors je dois etre authentifié pour y accèder, sinon je fais une redirection vers la page /login

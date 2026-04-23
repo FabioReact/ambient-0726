@@ -5,8 +5,6 @@ import { schema } from "./schema";
 import { useMutation } from "@tanstack/react-query";
 import { loginUser as loginUserApiCall } from "../../api/users";
 import { toast } from "react-toastify";
-import { useContext } from "react";
-import UserContext from "../../context/user-context";
 import { useLocation, useNavigate } from "react-router";
 import { useAppDispatch } from "../../redux/hooks";
 import { loginUser } from "../../redux/features/user/userSlice";
@@ -21,7 +19,6 @@ const Login = () => {
   } = useForm<Inputs>({
     resolver: zodResolver(schema),
   });
-  const { loginUser: onLogin } = useContext(UserContext);
   const navigate = useNavigate();
   const { state } = useLocation();
   const dispatch = useAppDispatch(); // Je dois dispatcher l'action qu'il vient de se passer, pour mettre à jour le store redux
@@ -32,7 +29,6 @@ const Login = () => {
       // Partager l'adresse mail et le token de l'utilisateur avec les autres composants de l'application
       // data.accessToken
       toast.success(`User ${data.user.email} logged in successfully`);
-      onLogin(data.user.email, data.accessToken); // met à jour le context
       dispatch(loginUser({ email: data.user.email, accessToken: data.accessToken })); // met à jour le store redux
       const nextRoute = state?.from ?? "/";
       navigate(nextRoute, { replace: true });

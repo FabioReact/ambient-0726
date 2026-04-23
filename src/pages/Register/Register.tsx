@@ -5,8 +5,8 @@ import { schema } from "./schema";
 import { useMutation } from "@tanstack/react-query";
 import { createUser } from "../../api/users";
 import { toast } from "react-toastify";
-import { useContext } from "react";
-import UserContext from "../../context/user-context";
+import { useAppDispatch } from "../../redux/hooks";
+import { loginUser } from "../../redux/features/user/userSlice";
 
 type Inputs = z.infer<typeof schema>;
 
@@ -18,7 +18,8 @@ const Register = () => {
   } = useForm<Inputs>({
     resolver: zodResolver(schema),
   });
-  const { loginUser } = useContext(UserContext);
+
+  const dispatch = useAppDispatch()
 
   const { mutate } = useMutation({
     mutationFn: createUser,
@@ -26,7 +27,7 @@ const Register = () => {
       // Partager l'adresse mail et le token de l'utilisateur avec les autres composants de l'application
       // data.accessToken
       toast.success(`User ${data.user.email} registered successfully`);
-      loginUser(data.user.email, data.accessToken);
+      dispatch(loginUser({email: data.user.email, accessToken: data.accessToken}))
     },
     onError: (error) => {
       toast.error(`An error occured: ${error.message}`);

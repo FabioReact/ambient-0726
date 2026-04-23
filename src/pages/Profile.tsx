@@ -1,8 +1,8 @@
-import { useContext } from "react";
-import UserContext from "../context/user-context";
+
+import { useAppSelector } from "../redux/hooks";
 
 const Profile = () => {
-  const { email, accessToken } = useContext(UserContext);
+  const { email, accessToken } = useAppSelector(state => state.user)
 
   return (
     <section>

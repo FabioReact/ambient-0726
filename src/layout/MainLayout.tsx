@@ -3,6 +3,7 @@ import { ErrorBoundary } from "../hoc/ErrorBoundary";
 import { ToastContainer } from "react-toastify";
 import { useUserContext } from "../context/user-context";
 import Footer from "@components/Footer";
+import { useAppSelector } from "../redux/hooks";
 
 const getActiveClassName = ({ isActive }: NavLinkRenderProps) =>
   [
@@ -34,7 +35,7 @@ const links: Link[] = [
 ];
 
 const MainLayout = () => {
-  const { isConnected } = useUserContext();
+  const isConnected = useAppSelector((state) => state.user.isConnected);
 
   const filteredLinks = links.filter((link) => {
     if (link.visibility === LinkVisibility.PUBLIC) return true;

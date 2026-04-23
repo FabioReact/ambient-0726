@@ -12,23 +12,26 @@ import { useQuery } from "@tanstack/react-query";
 import { getHeroes } from "../../api/heroes";
 import IsLoading from "@components/IsLoading/IsLoading";
 import IsError from "@components/IsError";
+import { useGetHeroesByLetterQuery } from "../../redux/services/heroesApi";
 
 const alphabet = getAlphabet();
 
-function HeroesList() {
+const HeroesList = () => {
   const initialLetter = "A";
   const [letter, setLetter] = useState(initialLetter);
   // const { heroes, loading, error, refetch } = useGetHeroes();
 
-  const {
-    data: heroes,
-    isLoading,
-    isError,
-    error,
-  } = useQuery({
-    queryKey: ["getHeroes", letter],
-    queryFn: () => getHeroes(letter),
-  });
+  // const {
+  //   data: heroes,
+  //   isLoading,
+  //   isError,
+  //   error,
+  // } = useQuery({
+  //   queryKey: ["getHeroes", letter],
+  //   queryFn: () => getHeroes(letter),
+  // });
+
+  const { data: heroes, isLoading, isError, error } = useGetHeroesByLetterQuery(letter);
 
   useEffect(() => {
     // refetch();
@@ -67,9 +70,8 @@ function HeroesList() {
           </section>
         </IsError>
       </IsLoading>
-
     </>
   );
-}
+};
 
 export default HeroesList;
